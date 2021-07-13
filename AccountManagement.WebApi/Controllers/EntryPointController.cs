@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +20,18 @@ namespace AccountManagement.WebApi.Controllers
         }
         
         [HttpGet]
-        public ActionResult<EndpointInfo> Get()
+        public ActionResult Get()
         {
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/";
-            return Ok(new EndpointInfo
+
+            return Ok(new Links
             {
-                Href = baseUrl + "accountManagement", 
-                Rel = "self",
-                Links = new List<Link>
+                Self = new Link
+                {
+                    Href = baseUrl + "accountManagement", 
+                    Rel = "self",
+                },
+                Accounts = new List<Link>
                 {
                     new() {Href = baseUrl + "accountManagement", Rel = "accounts"}
                 }
@@ -38,11 +44,10 @@ namespace AccountManagement.WebApi.Controllers
             public string Rel { get; init; }
         }
         
-        public class EndpointInfo
+        public class Links
         {
-            public string Href { get; init; }
-            public string Rel { get; init; }
-            public IEnumerable<Link> Links { get; init; }
+            public Link Self { get; init; }
+            public IEnumerable<Link> Accounts { get; init; }
         };
     }
 }
