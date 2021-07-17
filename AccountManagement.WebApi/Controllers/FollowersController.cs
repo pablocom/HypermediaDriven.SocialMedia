@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AccountManagement.WebApi.Model;
+using AccountManagement.WebApi.Representations;
 using HypermediaDriven.SocialMedia.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -40,23 +41,5 @@ namespace AccountManagement.WebApi.Controllers
                 new Follower("User3")
             };
         }
-    }
-
-    public class FollowersRepresentation : Representation
-    {
-        public IEnumerable<Follower> Followers { get; }
-        
-        public FollowersRepresentation(Link self, IEnumerable<Link> links, IEnumerable<Follower> followers) 
-            : base(self, links)
-        {
-            Followers = followers;
-        }
-    }
-
-    public class Follower
-    {
-        public string Name { get; }
-
-        public Follower(string name) => Name = name;
     }
 }
