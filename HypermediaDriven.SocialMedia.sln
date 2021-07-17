@@ -1,8 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.WebApi", "AccountManagement.WebApi\AccountManagement.WebApi.csproj", "{2A7BBB61-3CC4-4309-AD83-44AC13919A61}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31512.422
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.WebApi", "AccountManagement.WebApi\AccountManagement.WebApi.csproj", "{2A7BBB61-3CC4-4309-AD83-44AC13919A61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HypermediaDriven.SocialMedia.Core", "HypermediaDriven.SocialMedia.Core\HypermediaDriven.SocialMedia.Core.csproj", "{C916B0B7-E389-4913-AA39-209281BBBD6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HypermediaDriven.SocialMedia.Core", "HypermediaDriven.SocialMedia.Core\HypermediaDriven.SocialMedia.Core.csproj", "{C916B0B7-E389-4913-AA39-209281BBBD6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB1C83D9-DA28-4B35-8AB0-584B395517EF}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +26,11 @@ Global
 		{C916B0B7-E389-4913-AA39-209281BBBD6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C916B0B7-E389-4913-AA39-209281BBBD6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C916B0B7-E389-4913-AA39-209281BBBD6F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AED43558-A575-4578-B33E-09A3C8AFA845}
 	EndGlobalSection
 EndGlobal
