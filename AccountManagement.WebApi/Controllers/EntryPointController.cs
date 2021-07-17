@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using HypermediaDriven.SocialMedia.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace AccountManagement.WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route(RoutingPrefixes.AccountManagement + "accountManagement/[controller]")]
     public class EntryPointController : ControllerBase
     {
         private readonly ILogger<WeatherForecastController> _logger;
