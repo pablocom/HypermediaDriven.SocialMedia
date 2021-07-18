@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using EventStore.ClientAPI;
-using EventStore.ClientAPI.SystemData;
 
 namespace HypermediaDriven.SocialMedia.Core
 {

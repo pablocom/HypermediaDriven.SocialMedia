@@ -1,4 +1,3 @@
-using AccountManagement.WebApi.Controllers;
 using HypermediaDriven.SocialMedia.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

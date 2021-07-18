@@ -1,5 +1,4 @@
-﻿using AccountManagement.WebApi.Controllers;
-using AccountManagement.WebApi.Model;
+﻿using AccountManagement.WebApi.Model;
 using System.Collections.Generic;
 using HypermediaDriven.SocialMedia.Core;
 

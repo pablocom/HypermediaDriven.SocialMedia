@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventStore.ClientAPI;
 
 namespace HypermediaDriven.SocialMedia.Core
 {
