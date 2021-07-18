@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -34,10 +36,20 @@ namespace HypermediaDriven.SocialMedia.Core
             await connection.AppendToStreamAsync("TEST", ExpectedVersion.Any, eventData).ConfigureAwait(false);
         }
 
-        public async Task<IEnumerable<ResolvedEvent>> ReadEventsAsync() 
+        public async Task<IEnumerable<TEvent>> ReadEventsAsync<TEvent>() where TEvent : IEvent 
         {
-            var readResult = await connection.ReadStreamEventsBackwardAsync("TEST", 0, 20, false, new UserCredentials("admin", "changeit"));
-            return readResult.Events;
+            var readResult = await connection.ReadStreamEventsBackwardAsync("TEST", 0, 20, false);
+            return readResult.Events.Select(Deserialize<TEvent>);
+        }
+
+        private static TEvent Deserialize<TEvent>(ResolvedEvent resolvedEvent) where TEvent : IEvent
+        {
+            var serializedEvent = Encoding.UTF8.GetString(resolvedEvent.Event.Data);
+            var domainEvent = JsonSerializer.Deserialize<TEvent>(serializedEvent);
+            if (domainEvent is null)
+                throw new SerializationException($"Cannot deserialize event of type {typeof(TEvent).Name}");
+            
+            return domainEvent;
         }
     }
 }

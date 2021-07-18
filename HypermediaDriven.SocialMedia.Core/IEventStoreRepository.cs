@@ -7,6 +7,6 @@ namespace HypermediaDriven.SocialMedia.Core
     public interface IEventStoreRepository
     {
         Task PersistEventAsync<TEvent>(TEvent @event) where TEvent : IEvent;
-        Task<IEnumerable<ResolvedEvent>> ReadEventsAsync();
+        Task<IEnumerable<TEvent>> ReadEventsAsync<TEvent>() where TEvent : IEvent;
     }
 }

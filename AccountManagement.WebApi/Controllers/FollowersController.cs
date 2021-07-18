@@ -61,10 +61,10 @@ namespace AccountManagement.WebApi.Controllers
 
         public int FollowedAccountId { get; set; }
 
-        public BeganFollowing(int FollowerAccountId, int FollowedAccountId)
+        public BeganFollowing(int followerAccountId, int followedAccountId)
         {
-            this.FollowerAccountId = FollowerAccountId;
-            this.FollowedAccountId = FollowedAccountId;
+            this.FollowerAccountId = followerAccountId;
+            this.FollowedAccountId = followedAccountId;
         }
     }
 }
