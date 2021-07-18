@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 namespace AccountManagement.WebApi.Controllers
 {
     [ApiController]
-    [Route(RoutingPrefixes.AccountManagement + "accounts/{accountId:int}/[controller]")]
+    [Route(RoutingPrefixes.AccountManagement + "/accounts/{accountId:int}/[controller]")]
     public class FollowersController : ControllerBase
     {
         private readonly ILogger<FollowersController> _logger;
-        private readonly IEventPersister eventPersister;
+        private readonly IEventStoreRepository eventStoreRepository;
 
-        public FollowersController(ILogger<FollowersController> logger, IEventPersister eventPersister)
+        public FollowersController(ILogger<FollowersController> logger, IEventStoreRepository eventStoreRepository)
         {
             _logger = logger;
-            this.eventPersister = eventPersister;
+            this.eventStoreRepository = eventStoreRepository;
         }
 
         [HttpGet]
@@ -27,8 +27,8 @@ namespace AccountManagement.WebApi.Controllers
             var baseUrl = $"{Request.Scheme}://{Request.Host}/{RoutingPrefixes.AccountManagement}";
 
             return new FollowersRepresentation(
-                new Link(baseUrl + $"accounts/{accountId}/followers", "self"),
-                new[] { new Link(baseUrl + $"accounts/{accountId}/followers?page=2", "self") },
+                new Link(baseUrl + $"/accounts/{accountId}/followers", "self"),
+                new[] { new Link(baseUrl + $"/accounts/{accountId}/followers?page=2", "self") },
                 ReadFollowers(accountId)
             );
         }
@@ -38,7 +38,7 @@ namespace AccountManagement.WebApi.Controllers
         {
             var domainEvent = new BeganFollowing(accountId, accountIdToStartFollowing);
 
-            await eventPersister.PersistEventAsync(domainEvent);
+            await eventStoreRepository.PersistEventAsync(domainEvent);
             return RedirectToAction(nameof(GetFollowers), new { accountId });
         }
 
@@ -55,5 +55,16 @@ namespace AccountManagement.WebApi.Controllers
         }
     }
 
-    public record BeganFollowing(int FollowerAccountId, int FollowedAccountId) : IEvent;
+    public class BeganFollowing : IEvent
+    {
+        public int FollowerAccountId { get; set; }
+
+        public int FollowedAccountId { get; set; }
+
+        public BeganFollowing(int FollowerAccountId, int FollowedAccountId)
+        {
+            this.FollowerAccountId = FollowerAccountId;
+            this.FollowedAccountId = FollowedAccountId;
+        }
+    }
 }

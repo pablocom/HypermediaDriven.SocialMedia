@@ -26,7 +26,7 @@ namespace AccountManagement.WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AccountManagement.WebApi", Version = "v1" });
             });
 
-            services.AddSingleton<IEventPersister, EventPersister>();
+            services.AddSingleton<IEventStoreRepository, EventStoreRepository>();
             services.AddSingleton<ITimeService, TimeService>();
         }
 

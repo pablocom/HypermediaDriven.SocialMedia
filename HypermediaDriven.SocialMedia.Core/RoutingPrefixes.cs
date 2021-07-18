@@ -2,6 +2,6 @@
 {
     public class RoutingPrefixes
     {
-        public const string AccountManagement = "accountManagement/";
+        public const string AccountManagement = "accountManagement";
     }
 }

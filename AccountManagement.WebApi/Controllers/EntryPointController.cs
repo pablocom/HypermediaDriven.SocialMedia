@@ -1,43 +1,25 @@
 ﻿using HypermediaDriven.SocialMedia.Core;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 
 namespace AccountManagement.WebApi.Controllers
 {
     [ApiController]
-    [Route(RoutingPrefixes.AccountManagement + "accountManagement/[controller]")]
+    [Route(RoutingPrefixes.AccountManagement + "/[controller]")]
     public class EntryPointController : ControllerBase
     {
         [HttpGet]
         public ActionResult Get()
         {
-            var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/";
+            var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/{RoutingPrefixes.AccountManagement}";
 
-            return Ok(new Links
-            {
-                Self = new Link
+            return Ok(new Representation(
+                new Link(baseUrl, "self"),
+                new Link[]
                 {
-                    Href = baseUrl + "accountManagement",
-                    Rel = "self",
-                },
-                Accounts = new List<Link>
-                {
-                    new() {Href = baseUrl + "accountManagement", Rel = "accounts"}
-                }
-            });
+                    new(baseUrl + "/accounts", "accounts"),
+                    new(baseUrl + "/BeganFollowing", "BeganFollowing")
+                })
+            );
         }
-
-        public class Link
-        {
-            public string Href { get; init; }
-            public string Rel { get; init; }
-        }
-
-        public class Links
-        {
-            public Link Self { get; init; }
-            public IEnumerable<Link> Accounts { get; init; }
-        };
     }
 }
