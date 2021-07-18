@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AccountManagement.WebApi.Controllers
+﻿namespace HypermediaDriven.SocialMedia.Core
 {
     public class Representation
     {

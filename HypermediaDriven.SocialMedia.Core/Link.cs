@@ -1,4 +1,4 @@
-﻿namespace AccountManagement.WebApi.Controllers
+﻿namespace HypermediaDriven.SocialMedia.Core
 {
     public class Link
     {

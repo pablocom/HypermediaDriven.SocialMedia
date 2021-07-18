@@ -1,6 +1,7 @@
 ﻿using AccountManagement.WebApi.Controllers;
 using AccountManagement.WebApi.Model;
 using System.Collections.Generic;
+using HypermediaDriven.SocialMedia.Core;
 
 namespace AccountManagement.WebApi.Representations
 {
