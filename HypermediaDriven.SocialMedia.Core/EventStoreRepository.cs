@@ -11,14 +11,14 @@ namespace HypermediaDriven.SocialMedia.Core
 {
     public class EventStoreRepository : IEventStoreRepository
     {
-        private readonly IEventStoreConnection connection;
+        private readonly IEventStoreConnection _connection;
 
         public EventStoreRepository()
         {
             var connectionSettings = ConnectionSettings.Create()
                 .DisableTls().DisableServerCertificateValidation().EnableVerboseLogging();
-            connection = EventStoreConnection.Create(connectionSettings, new Uri("tcp://admin:changeit@localhost:1113"));
-            connection.ConnectAsync().GetAwaiter().GetResult();
+            _connection = EventStoreConnection.Create(connectionSettings, new Uri("tcp://admin:changeit@localhost:1113"));
+            _connection.ConnectAsync().GetAwaiter().GetResult();
         }
 
         public async Task PersistEventAsync<TEvent>(TEvent @event) where TEvent : IEvent
@@ -32,12 +32,12 @@ namespace HypermediaDriven.SocialMedia.Core
                 Array.Empty<byte>()
             );
 
-            await connection.AppendToStreamAsync("TEST", ExpectedVersion.Any, eventData).ConfigureAwait(false);
+            await _connection.AppendToStreamAsync(typeof(TEvent).Name, ExpectedVersion.Any, eventData).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<TEvent>> ReadEventsAsync<TEvent>() where TEvent : IEvent 
         {
-            var readResult = await connection.ReadStreamEventsBackwardAsync("TEST", 0, 20, false);
+            var readResult = await _connection.ReadStreamEventsForwardAsync(typeof(TEvent).Name, 0, 20, false);
             return readResult.Events.Select(Deserialize<TEvent>);
         }
 
